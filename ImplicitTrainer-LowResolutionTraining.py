@@ -312,9 +312,6 @@ def main(args,config_, save_path):
     evaluationPaths.append(save_path_results)
     evaluationPaths.append(config['test_dataset']['dataset']['args']['root_path_2']) 
 
-    fid_value = fid_score.calculate_fid_given_paths(evaluationPaths,10,device,2048)
-    print("FID Metric", fid_value)
-
 
 
 if __name__ == '__main__':
@@ -335,7 +332,7 @@ if __name__ == '__main__':
     parser.add_argument('--lambda_p1', default=1.0,type=float)
     parser.add_argument('--lambda_p2', default=1.0,type=float)
     parser.add_argument("--resume"     , action="store_true")
-    parser.add_argument("--path"     ,default='/uufs/sci.utah.edu/scratch/TusharKatariaData/ImplicitModelExperimentsNEW/Low_res_to_high/',type=str)
+    parser.add_argument("--path"     ,default='<Saving Directory Path>/Low_res_to_high/',type=str)
     parser.add_argument('--epoch', default=200,type=int)
     args = parser.parse_args()
 
@@ -356,12 +353,13 @@ if __name__ == '__main__':
 
     save_dir = os.path.join(save_dir,args.dataset,args.backbone)
     if(args.dataset=='HEMIT'):
-       config['train_dataset']['dataset']['args']['root_path_1'] = '/uufs/sci.utah.edu/scratch/TusharKatariaData/preprocessedDataNew/40xNew/TissueParts/PrototypeDataset/HEMIT/256/Resample0/HE/train'  
-       config['train_dataset']['dataset']['args']['root_path_2'] = '/uufs/sci.utah.edu/scratch/TusharKatariaData/preprocessedDataNew/40xNew/TissueParts/PrototypeDataset/HEMIT/256/Resample0/IHC/train' 
-       config['val_dataset']['dataset']['args']['root_path_1']   = '/uufs/sci.utah.edu/scratch/TusharKatariaData/preprocessedDataNew/40xNew/TissueParts/PrototypeDataset/HEMIT/256/Resample0/HE/train'  
-       config['val_dataset']['dataset']['args']['root_path_2']   = '/uufs/sci.utah.edu/scratch/TusharKatariaData/preprocessedDataNew/40xNew/TissueParts/PrototypeDataset/HEMIT/256/Resample0/IHC/train' 
-       config['test_dataset']['dataset']['args']['root_path_1']  = '/uufs/sci.utah.edu/scratch/TusharKatariaData/preprocessedDataNew/40xNew/TissueParts/PrototypeDataset/HEMIT/256/Resample0/HE/test'   
-       config['test_dataset']['dataset']['args']['root_path_2']  = '/uufs/sci.utah.edu/scratch/TusharKatariaData/preprocessedDataNew/40xNew/TissueParts/PrototypeDataset/HEMIT/256/Resample0/IHC/test'  
+        # PATH for new dataset other than one listed in "configs/train-he2ihc/train_he_to_ihc_liif.yaml"
+        config['train_dataset']['dataset']['args']['root_path_1'] = '<Path to HE Directory(Domain A) Training Data>'
+        config['train_dataset']['dataset']['args']['root_path_2'] = '<Path to IHC Directory(Domain B) Training Data>' 
+        config['val_dataset']['dataset']['args']['root_path_1']   = '<Path to HE Directory(Domain A) Validation Data>' 
+        config['val_dataset']['dataset']['args']['root_path_2']   = '<Path to IHC Directory(Domain B) Validation Data>' 
+        config['test_dataset']['dataset']['args']['root_path_1']  = '<Path to HE Directory(Domain A) Testing Data>' 
+        config['test_dataset']['dataset']['args']['root_path_2']  = '<Path to IHC Directory(Domain B) Testing Data>' 
        
  
     config['model']['name'] = args.local

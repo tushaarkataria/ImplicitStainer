@@ -2,8 +2,8 @@ train_dataset:
   dataset:
     name: paired-image-folders-downsample-64
     args:
-      root_path_1: /uufs/sci.utah.edu/scratch/TusharKatariaData/preprocessedDataNew/40xNew/TissueParts/PrototypeDataset/HEMIT/256/Resample0/HE/train
-      root_path_2: /uufs/sci.utah.edu/scratch/TusharKatariaData/preprocessedDataNew/40xNew/TissueParts/PrototypeDataset/HEMIT/256/Resample0/IHC/train
+      root_path_1: <Path to HE Directory(Domain A) Training Data> 
+      root_path_2: <Path to IHC Directory(Domain B) Training Data>
   wrapper:
     name: sr-implicit-paired-he-ihc-downsample
     args: {}
@@ -13,8 +13,8 @@ val_dataset:
   dataset:
     name: paired-image-folders-downsample-64
     args:
-      root_path_1: /uufs/sci.utah.edu/scratch/TusharKatariaData/preprocessedDataNew/40xNew/TissueParts/PrototypeDataset/HEMIT/256/Resample0/HE/train/
-      root_path_2: /uufs/sci.utah.edu/scratch/TusharKatariaData/preprocessedDataNew/40xNew/TissueParts/PrototypeDataset/HEMIT/256/Resample0/IHC/train/
+      root_path_1: <Path to HE Directory(Domain A) Validation Data>
+      root_path_2: <Path to IHC Directory(Domain B) Validation Data> 
       first_k: 100
   wrapper:
     name: sr-implicit-paired-he-ihc-downsample
@@ -25,8 +25,8 @@ test_dataset:
   dataset:
     name: paired-image-folders-downsample-64
     args:
-      root_path_1: /uufs/sci.utah.edu/scratch/TusharKatariaData/preprocessedDataNew/40xNew/TissueParts/PrototypeDataset/HEMIT/256/Resample0/HE/test/
-      root_path_2: /uufs/sci.utah.edu/scratch/TusharKatariaData/preprocessedDataNew/40xNew/TissueParts/PrototypeDataset/HEMIT/256/Resample0/IHC/test/
+      root_path_1: <Path to HE Directory(Domain A) Testing Data> 
+      root_path_2: <Path to IHC Directory(Domain B) Testing Data>
   wrapper:
     name: sr-implicit-paired-he-ihc-downsample
     args: {}

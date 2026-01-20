@@ -211,10 +211,10 @@ def eval_psnr_mine_64(loader, model,save_path, data_norm=None, eval_type=None, e
         inp = (batch['inp'] - inp_sub) / inp_div
         if eval_bsize is None:
             with torch.no_grad():
-                pred = model(inp, batch['coord'], batch['cell'])
+                pred = model(inp, batch['coord'])
         else:
             pred = batched_predict(model, inp,
-                batch['coord'], batch['cell'], eval_bsize)
+                batch['coord'], eval_bsize)
         pred = pred * gt_div + gt_sub
         pred.clamp_(0, 1)
 
@@ -285,10 +285,10 @@ def eval_psnr_mine_high_resolution(loader, model,save_path, data_norm=None, eval
         inp = (batch['inp'] - inp_sub) / inp_div
         if eval_bsize is None:
             with torch.no_grad():
-                pred = model(inp, batch['coord1'], batch['cell1'])
+                pred = model(inp, batch['coord1'])
         else:
             pred = batched_predict(model, inp,
-                batch['coord1'], batch['cell1'], eval_bsize)
+                batch['coord1'], eval_bsize)
         pred = pred * gt_div + gt_sub
         pred.clamp_(0, 1)
 
