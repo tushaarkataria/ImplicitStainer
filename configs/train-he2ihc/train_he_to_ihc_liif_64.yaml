@@ -1,0 +1,64 @@
+train_dataset:
+  dataset:
+    name: paired-image-folders-downsample-64
+    args:
+      root_path_1: /uufs/sci.utah.edu/scratch/TusharKatariaData/preprocessedDataNew/40xNew/TissueParts/PrototypeDataset/HEMIT/256/Resample0/HE/train
+      root_path_2: /uufs/sci.utah.edu/scratch/TusharKatariaData/preprocessedDataNew/40xNew/TissueParts/PrototypeDataset/HEMIT/256/Resample0/IHC/train
+  wrapper:
+    name: sr-implicit-paired-he-ihc-downsample
+    args: {}
+  batch_size: 8
+
+val_dataset:
+  dataset:
+    name: paired-image-folders-downsample-64
+    args:
+      root_path_1: /uufs/sci.utah.edu/scratch/TusharKatariaData/preprocessedDataNew/40xNew/TissueParts/PrototypeDataset/HEMIT/256/Resample0/HE/train/
+      root_path_2: /uufs/sci.utah.edu/scratch/TusharKatariaData/preprocessedDataNew/40xNew/TissueParts/PrototypeDataset/HEMIT/256/Resample0/IHC/train/
+      first_k: 100
+  wrapper:
+    name: sr-implicit-paired-he-ihc-downsample
+    args: {}
+  batch_size: 8
+
+test_dataset:
+  dataset:
+    name: paired-image-folders-downsample-64
+    args:
+      root_path_1: /uufs/sci.utah.edu/scratch/TusharKatariaData/preprocessedDataNew/40xNew/TissueParts/PrototypeDataset/HEMIT/256/Resample0/HE/test/
+      root_path_2: /uufs/sci.utah.edu/scratch/TusharKatariaData/preprocessedDataNew/40xNew/TissueParts/PrototypeDataset/HEMIT/256/Resample0/IHC/test/
+  wrapper:
+    name: sr-implicit-paired-he-ihc-downsample
+    args: {}
+  batch_size: 1
+
+data_norm:
+  inp: {sub: [0.5], div: [0.5]}
+  gt: {sub: [0.5], div: [0.5]}
+
+model:
+  name: liif
+  args:
+    encoder_spec:
+      name: edsr-baseline
+      args:
+        no_upsampling: true
+    imnet_spec:
+      name: mlp-prelu
+      args:
+        out_dim: 3
+        hidden_list: [256, 256, 256, 256]
+
+optimizer:
+  name: adam
+  args:
+    lr: 1.e-4
+epoch_max: 200
+multi_step_lr:
+  milestones: [100]
+  gamma: 0.1
+
+epoch_val: 1
+epoch_save: 10
+
+
