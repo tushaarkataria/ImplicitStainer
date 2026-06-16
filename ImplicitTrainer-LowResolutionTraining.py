@@ -20,7 +20,6 @@
 
         (epoch_val): ; (epoch_save):
 """
-from comet_ml import Experiment
 import argparse
 import os
 
@@ -188,7 +187,7 @@ def main(args,config_, save_path):
 
     model, optimizer, epoch_start, lr_scheduler = prepare_training(args)
 
-    n_gpus = len(os.environ['CUDA_VISIBLE_DEVICES'].split(','))
+    n_gpus = len(os.environ.get('CUDA_VISIBLE_DEVICES', '0').split(','))
     if n_gpus > 1:
         model = nn.parallel.DataParallel(model)
 
@@ -339,12 +338,8 @@ if __name__ == '__main__':
     #os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
 
 
-    OSname = os.uname().nodename
-    if('rw' in OSname):
-       save_dir = '/uufs/sci.utah.edu/scratch/TusharKatariaData/ImplicitModelExperiments/'
-    else:
-       save_dir = '/uufs/sci.utah.edu/scratch/TusharKatariaData/ImplicitModelExperimentsNEW/Low_res_to_high/'
-    
+    save_dir = '<Saving Directory Path>/Low_res_to_high/'
+
     with open(args.config, 'r') as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
         print('config loaded.')

@@ -1,0 +1,17 @@
+# Core
+torch
+numpy
+pyyaml
+tqdm
+
+# Image I/O and metrics
+opencv-python
+scikit-image
+Pillow
+
+# Perceptual losses (provided by MONAI GenerativeModels, imported as `generative.losses`)
+monai
+monai-generative
+
+# Logging
+tensorboardX

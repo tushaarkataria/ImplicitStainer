@@ -20,7 +20,6 @@
 
         (epoch_val): ; (epoch_save):
 """
-from comet_ml import Experiment
 import argparse
 import os
 
@@ -187,7 +186,7 @@ def main(args,config_, save_path):
 
     model, optimizer, epoch_start, lr_scheduler = prepare_training(args)
     #print(model)
-    n_gpus = len(os.environ['CUDA_VISIBLE_DEVICES'].split(','))
+    n_gpus = len(os.environ.get('CUDA_VISIBLE_DEVICES', '0').split(','))
     if n_gpus > 1:
         model = nn.parallel.DataParallel(model)
 

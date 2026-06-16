@@ -137,7 +137,7 @@ def eval_psnr_mine(loader, model,save_path, data_norm=None, eval_type=None, eval
         inp = (batch['inp'] - inp_sub) / inp_div
         if eval_bsize is None:
             with torch.no_grad():
-                pred = model(inp, batch['coord'], batch['cell'])
+                pred = model(inp, batch['coord'])
         else:
             pred = batched_predict(model, inp,
                 batch['coord'], batch['cell'], eval_bsize)
@@ -155,9 +155,6 @@ def eval_psnr_mine(loader, model,save_path, data_norm=None, eval_type=None, eval
 
         res = metric_fn(pred, batch['gt'])
         val_res.add(res.item(), inp.shape[0])
-        #pred[pred>0] = 1.0
-        shape_array = batch['inp'].shape()[1:-1]
-        print(batch['inp'].size()) 
         predicted_image =pred.squeeze().view(256,256,3).detach().cpu().numpy()
         if(colorspace=='HSV'): 
             predicted_image = hsv2rgb(predicted_image) 
